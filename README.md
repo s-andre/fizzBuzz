@@ -17,6 +17,8 @@ Install [docker and docker-compose](https://docs.docker.com/get-docker/).
 On your terminal run:
 
 ```bash
+cd fizzBuzz
+
 docker-compose up -d
 
 # this will output the numbers from 1 to 100
@@ -24,6 +26,10 @@ docker exec fizzBuzz-php php bin/console print-numbers-fizz-buzz
 
 # if you want to use different intervals you can run (2 is the start and 50 is the end):
 docker exec fizzBuzz-php php bin/console print-numbers-fizz-buzz 2 50
+
+#unit tests
+docker exec fizzBuzz-php php bin/phpunit
+
 ```
 
 If you have already a local php environment, you can skip docker and run:
@@ -38,4 +44,7 @@ php bin/console print-numbers-fizz-buzz
 
 # if you want to use different intervals you can run (2 is the start and 50 is the end):
 php bin/console print-numbers-fizz-buzz 2 50
+
+#unit tests
+php bin/phpunit
 ```
