@@ -1,0 +1,17 @@
+services:
+  php:
+    container_name: fizzBuzz-php
+    image: php:8.1.11-fpm-alpine
+    working_dir: /var/www/html
+    ports:
+      - '9000:9000'
+    volumes:
+      - .:/var/www/html
+
+  composer:
+    container_name: fizzBuzz-composer
+    image: composer:latest
+    working_dir: /var/www/html
+    command: [ "composer", "install" ]
+    volumes:
+      - .:/var/www/html
