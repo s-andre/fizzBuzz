@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -35,13 +36,19 @@ class PrintNumbersFizzBuzzCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io    = new SymfonyStyle($input, $output);
-        $start = $input->getArgument('start') ?? FizzBuzz::DEFAULT_RANGE_START;
-        $end   = $input->getArgument('end') ?? FizzBuzz::DEFAULT_RANGE_END;
+        try {
+            $start = $input->getArgument('start') ?? FizzBuzz::DEFAULT_RANGE_START;
+            $end   = $input->getArgument('end') ?? FizzBuzz::DEFAULT_RANGE_END;
 
-        $result = $this->fizzBuzz->print($start, $end);
+            $result = $this->fizzBuzz->print($start, $end);
 
-        $io->success($result);
+            $io->success($result);
 
-        return Command::SUCCESS;
+            return Command::SUCCESS;
+        } catch (Exception $e) {
+            $io->error($e->getMessage());
+
+            return Command::FAILURE;
+        }
     }
 }
